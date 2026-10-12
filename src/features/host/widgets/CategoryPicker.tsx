@@ -70,7 +70,6 @@ export function CategoryPicker({ categories, difficulty, selected, onChange }: C
               </span>
               <span className="min-w-0">
                 <span className="block truncate font-display text-[19px] font-extrabold leading-tight">{category.label}</span>
-                <span className={cn('block text-[13px] font-bold', on ? 'text-white/85' : 'text-ink-3')}>{count} questions</span>
               </span>
             </button>
           );

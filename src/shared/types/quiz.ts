@@ -122,6 +122,10 @@ export interface QuizView {
   questions_per_round: number;
   question_seq: number;
   questions_asked: number;
+  /** What each point is scaled by under these settings, in percent. */
+  multiplier_pct: number;
+  /** One phone, no big screen: shorter pauses and no separate scoreboard. */
+  quick: boolean;
   phase_started_at: number;
   /** Absolute epoch ms. 0 means the phase waits for the host. */
   deadline: number;

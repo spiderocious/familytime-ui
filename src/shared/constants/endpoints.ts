@@ -22,6 +22,10 @@ export const EP = {
     JOIN: (code: string) => `${V1}/rooms/${code}/players`,
   },
 
+  SOLO: {
+    START: `${V1}/solo`,
+  },
+
   RESULTS: {
     LIST: `${V1}/results`,
   },

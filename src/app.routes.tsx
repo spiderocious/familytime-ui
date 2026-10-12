@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { createBrowserRouter, Outlet, type RouteObject } from 'react-router-dom';
 
+import { arenaRoutes } from '@features/arena';
 import { homeRoutes } from '@features/home';
 import { hostRoutes } from '@features/host';
 import { playerRoutes } from '@features/player';
@@ -44,7 +45,7 @@ function RouteError() {
   );
 }
 
-const features: RouteObject[] = [...homeRoutes, ...hostRoutes, ...playerRoutes, ...previewRoutes];
+const features: RouteObject[] = [...homeRoutes, ...hostRoutes, ...playerRoutes, ...arenaRoutes, ...previewRoutes];
 
 export const router = createBrowserRouter([
   {

@@ -22,8 +22,18 @@ function readStored(): boolean {
   }
 }
 
-export function PhonePrefsProvider({ children }: { children: ReactNode }) {
-  const [showQuestion, setShow] = useState(readStored);
+interface PhonePrefsProviderProps {
+  children: ReactNode;
+  /**
+   * Always show the question, whatever was stored. For a game with no big
+   * screen — solo, or a duel — the phone is the only place it can be read.
+   */
+  alwaysShow?: boolean;
+}
+
+export function PhonePrefsProvider({ children, alwaysShow = false }: PhonePrefsProviderProps) {
+  const [stored, setShow] = useState(readStored);
+  const showQuestion = alwaysShow || stored;
 
   const setShowQuestion = useCallback((show: boolean) => {
     setShow(show);

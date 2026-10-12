@@ -30,6 +30,19 @@ export default function HomeScreen() {
           <GameShelf onPlay={(gameId) => navigate(PATHS.hostSetup(gameId))} />
           <aside className="flex flex-col gap-4 lg:pt-[52px]">
             <JoinBox onJoin={(code) => navigate(PATHS.joinWithCode(code))} />
+            <button
+              type="button"
+              onClick={() => navigate(PATHS.solo)}
+              className="flex items-center justify-between gap-3 rounded-card border-3 border-ink bg-sun p-5 text-left text-ink shadow-pop transition-transform active:translate-y-[6px] active:shadow-none"
+            >
+              <span>
+                <span className="block font-display text-[26px] font-extrabold leading-none">Play solo</span>
+                <span className="block text-[15px] font-semibold text-ink-2">Just you, ten questions, on this device.</span>
+              </span>
+              <span className="text-[40px] leading-none" aria-hidden="true">
+                ⚡
+              </span>
+            </button>
             <ol className="flex flex-col gap-2 rounded-card border-3 border-white/40 bg-white/10 p-5 text-[16px] font-bold">
               <li>1. Put this page on the TV and host a game.</li>
               <li>2. Everyone scans the code with their phone.</li>

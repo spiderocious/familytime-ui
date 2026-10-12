@@ -1,4 +1,6 @@
 import { Repeat, Show } from 'meemaw';
+import type { ReactNode } from 'react';
+
 
 import type { QuizFinal } from '@shared/types/quiz';
 import { CountUp } from '@shared/ui/CountUp';
@@ -10,6 +12,13 @@ import { ReactionBar } from './ReactionBar';
 interface PlayerFinalProps {
   final: QuizFinal;
   myId: string;
+  /**
+   * What sits under the result. In a party game that is "wait for the host";
+   * a one-phone game passes its own actions (play again, leaderboard).
+   */
+  footer?: ReactNode;
+  /** Replaces the medal and "1st place!" where a placing means nothing: a solo run. */
+  headline?: { emoji: string; title: string };
 }
 
 const MS_PER_SECOND = 1000;
@@ -17,7 +26,7 @@ const MEDALS: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
 const SCORE_ROLL_MS = 1400;
 
 /** Your own result: place, score, your numbers, and anything you won. */
-export function PlayerFinal({ final, myId }: PlayerFinalProps) {
+export function PlayerFinal({ final, myId, footer, headline }: PlayerFinalProps) {
   const mine = final.stats.find((row) => row.player_id === myId);
   const myAwards = final.awards.filter((award) => award.player_id === myId);
 
@@ -39,9 +48,9 @@ export function PlayerFinal({ final, myId }: PlayerFinalProps) {
   return (
     <div className="flex flex-1 flex-col items-center gap-5 px-5 pb-8 pt-6 text-center">
       <p className="animate-pop-in text-[110px] leading-none" aria-hidden="true">
-        {MEDALS[mine.rank] ?? '🎈'}
+        {headline?.emoji ?? MEDALS[mine.rank] ?? '🎈'}
       </p>
-      <h1 className="animate-drop-in text-[52px]">{ordinal(mine.rank)} place!</h1>
+      <h1 className="animate-drop-in text-[52px]">{headline?.title ?? `${ordinal(mine.rank)} place!`}</h1>
       <p className="font-display text-[44px] font-extrabold leading-none text-sun ink-stroke">
         <CountUp value={mine.score} durationMs={SCORE_ROLL_MS} /> pts
       </p>
@@ -69,10 +78,12 @@ export function PlayerFinal({ final, myId }: PlayerFinalProps) {
         </ul>
       </Show>
 
-      <p className="font-display text-[18px] font-bold opacity-90">Stay here — the host can start another game.</p>
-      <div className="mt-auto">
-        <ReactionBar />
-      </div>
+      <Show when={footer === undefined} fallback={footer}>
+        <p className="font-display text-[18px] font-bold opacity-90">Stay here — the host can start another game.</p>
+        <div className="mt-auto">
+          <ReactionBar />
+        </div>
+      </Show>
     </div>
   );
 }

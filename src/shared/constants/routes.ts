@@ -17,6 +17,10 @@ export const ROUTES = {
   JOIN_WITH_CODE: '/join/:code',
   PLAY: '/play/:code',
 
+  // One device, no big screen: a solo run.
+  SOLO: '/solo',
+  SOLO_PLAY: '/solo/:code',
+
   // The design system, live.
   PREVIEW: '/preview',
 } as const;
@@ -29,4 +33,6 @@ export const PATHS = {
   hostRoom: (code: string) => `/host/room/${code}`,
   joinWithCode: (code: string) => `/join/${code}`,
   play: (code: string) => `/play/${code}`,
+  solo: '/solo',
+  soloPlay: (code: string) => `/solo/${code}`,
 } as const;
